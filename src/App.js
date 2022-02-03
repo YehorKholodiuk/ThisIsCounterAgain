@@ -1,25 +1,58 @@
-import logo from './logo.svg';
-import './App.css';
-
+import {useState} from "react";
+import React from "react";
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    const [counters, setCounters] = useState([
+        {id: 1, counter: 5},
+        {id: 2, counter: 10},
+
+    ]);
+    const minus = (id) => {
+        console.log(id);
+        // const updatedCounters = [];
+//for ( let i = 0; i < counters.length;i++){
+        //if(counters[i].id) updatedCounters.push({...counters[i].id,counter:counters[i].counter - 1})
+        // else updatedCounters.push(counters[i])
+        const updatedCounters = counters.map(el => el.id === id ? ({...el, counter: el.counter - 1}) : el);
+
+
+        setCounters(updatedCounters)
+        // };
+    };
+    const plus = (id) => {
+        console.log(id);
+        // const updatedCounters = [];
+//for ( let i = 0; i < counters.length;i++){
+        //if(counters[i].id) updatedCounters.push({...counters[i].id,counter:counters[i].counter + 1})
+        // else updatedCounters.push(counters[i])
+        const updatedCounters = counters.map(el => el.id === id ? ({...el, counter: el.counter + 1}) : el);
+
+
+        setCounters(updatedCounters)
+        // };
+    };
+    const Reset = (id) => {
+    const updatedCounters = counters.map(el => el.id === id ? {...el, counter:0}:el);
+    setCounters(updatedCounters)
+    }
+    const addCounter = () => {
+        const newCounter = {id: Math.random(),counter:0}
+        setCounters([...counters, newCounter])
+    }
+
+
+    return (
+        <div>
+            {counters.map(el => <div key={el.id}>
+                    <button onClick={() => minus(el.id)}>Minus</button>
+                    {el.counter}
+                    <button onClick={() => plus(el.id)}>Plus</button>
+                    <button onClick={() => Reset(el.id)}>reset</button>
+                </div>)}
+            <hr/>
+                <button onClick={addCounter}>Add Counter</button>
+        </div>
+            );
+            }
 
 export default App;
+
