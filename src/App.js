@@ -6,6 +6,8 @@ function App() {
         {id: 2, counter: 10},
 
     ]);
+
+    const [inputNum, setInput] = useState(10)
     const minus = (id) => {
         console.log(id);
         // const updatedCounters = [];
@@ -44,6 +46,9 @@ function App() {
 
     }
 
+    const setForAll = ( ) => {
+        setCounters([...counters].map(el => ({...el, counter: inputNum})));
+    }
 
     return (
         <div>
@@ -54,6 +59,13 @@ function App() {
                 <button onClick={() => Reset(el.id)}>reset</button>
                 <button onClick={() => DeleteThis(el.id)}> Delete it</button>
             </div>)}
+            <div>
+                <input  type="text" placeholder='enter any number' value={inputNum}
+                onChange = {(event) => setInput(Number(event.target.value))}
+                />
+                    <button onClick={setForAll}>Set For all</button>
+                    <input type="text" onChange={(event) => console.log(event)}/>
+            </div>
             <hr/>
             <button onClick={addCounter}>Add Counter</button>
         </div>
