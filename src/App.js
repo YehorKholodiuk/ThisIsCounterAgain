@@ -31,28 +31,33 @@ function App() {
         // };
     };
     const Reset = (id) => {
-    const updatedCounters = counters.map(el => el.id === id ? {...el, counter:0}:el);
-    setCounters(updatedCounters)
+        const updatedCounters = counters.map(el => el.id === id ? {...el, counter:0}:el);
+        setCounters(updatedCounters)
     }
     const addCounter = () => {
         const newCounter = {id: Math.random(),counter:0}
         setCounters([...counters, newCounter])
     }
 
+    const DeleteThis = (id) => {
+ setCounters([...counters].filter(el => el.id !== id))
+
+    }
+
 
     return (
         <div>
             {counters.map(el => <div key={el.id}>
-                    <button onClick={() => minus(el.id)}>Minus</button>
-                    {el.counter}
-                    <button onClick={() => plus(el.id)}>Plus</button>
-                    <button onClick={() => Reset(el.id)}>reset</button>
-                </div>)}
+                <button onClick={() => minus(el.id)}>Minus</button>
+                {el.counter}
+                <button onClick={() => plus(el.id)}>Plus</button>
+                <button onClick={() => Reset(el.id)}>reset</button>
+                <button onClick={() => DeleteThis(el.id)}> Delete it</button>
+            </div>)}
             <hr/>
-                <button onClick={addCounter}>Add Counter</button>
+            <button onClick={addCounter}>Add Counter</button>
         </div>
-            );
-            }
+    );
+}
 
 export default App;
-
